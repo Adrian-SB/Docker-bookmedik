@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  mariadb1:
+    image: mariadb:latest
+    container_name: mariadb1
+    hostname: mariadb1
+    volumes:
+      - ./Backup:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=bookmedik
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+
+  apache2:
+    image: bookmedik:1.0
+    container_name: bookmedik1
+    hostname: bookmedik1
+    volumes:
+      - ./Logs:/var/log/apache2
+    ports:
+      - "80:80"
+    links:
+      - mariadb1
+    depends_on:
+      - mariadb1
