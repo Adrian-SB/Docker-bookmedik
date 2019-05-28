@@ -44,3 +44,35 @@ Iniciar contenedor a partir del dockerfile
 <pre>
 docker run --name bookmedik1 -h bookmedik --link mariadb1 -v /home/debian/Logs:/var/log/apache2 -d -p 80:80 bookmedik:1.0
 <pre>
+
+Docker-compose
+
+version: '3'
+
+<pre>
+services:
+  mariadb1:
+    image: mariadb:latest
+    container_name: mariadb1
+    hostname: mariadb
+    volumes:
+      - ./Backup:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=bookmedik
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+
+  apache2:
+    image: bookmedik:1.0
+    container_name: bookmedik1
+    hostname: bookmedik
+    volumes:
+      - ./Logs:/var/log/apache2
+    ports:
+      - "80:80"
+    links:
+      - mariadb1
+    depends_on:
+      - mariadb1
+</pre>
