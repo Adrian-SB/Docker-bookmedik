@@ -43,13 +43,12 @@ Iniciar contenedor a partir del dockerfile
 
 <pre>
 docker run --name bookmedik1 -h bookmedik --link mariadb1 -v /home/debian/Logs:/var/log/apache2 -d -p 80:80 bookmedik:1.0
-<pre>
+</pre>
 
 Docker-compose
 
-version: '3'
-
 <pre>
+version: '3'
 services:
   mariadb1:
     image: mariadb:latest
