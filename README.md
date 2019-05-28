@@ -38,3 +38,9 @@ COPY Database.php /var/www/bookmedik/core/controller/Database.php
 
 CMD /usr/sbin/apache2ctl -D FOREGROUND
 </pre>
+
+Iniciar contenedor a partir del dockerfile
+
+<pre>
+docker run --name bookmedik1 -h bookmedik --link mariadb1 -v /home/debian/Logs:/var/log/apache2 -d -p 80:80 bookmedik:1.0
+<pre>
